@@ -1,0 +1,23 @@
+#k-means
+set.seed(100)
+segmentasi
+segmentasi <- kmeans(x=field_yang_digunakan, centers=5, nstart=25)
+
+#penggabungan hasil cluster
+segmentasi$cluster
+pelanggan$cluster <- segmentasi$cluster
+str(pelanggan)
+
+#menganalisa hasil, filter cluster ke-1
+which(pelanggan$cluster == 1)
+
+#hitung jumlah deretan dengan menambahkan perintah length pada fungsi which
+#Tampilkan ukuran cluster ke-2 dari pelanggan
+length(which(pelanggan$cluster == 2))
+
+#melihat data cluster 3 sampai 5
+pelanggan[which(pelanggan$cluster == 3),] 
+pelanggan[which(pelanggan$cluster == 4),] 
+pelanggan[which(pelanggan$cluster == 5),] 
+
+#Melihat cluster means dari objek 

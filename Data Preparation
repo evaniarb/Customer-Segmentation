@@ -1,0 +1,24 @@
+#menampilkan data csv dengan membaca file format csv bervariabel "pelanggan" dan menampilkan kolom jenis kelamin, umur, profesi, serta tipe residen
+pelanggan <- read.csv("https://storage.googleapis.com/dqlab-dataset/customer_segments.txt", sep="\t")
+pelanggan[c("Jenis.Kelamin","Umur","Profesi","Tipe.Residen")]
+
+#Membaca data csv dan dimasukkan ke variable pelanggan
+pelanggan <- read.csv("https://storage.googleapis.com/dqlab-dataset/customer_segments.txt",sep="\t")
+#Buat variable field_yang_digunakan dengan isi berupa vector "Jenis.Kelamin", "Umur" dan "Profesi"
+field_yang_digunakan <- c("Jenis.Kelamin", "Umur", "Profesi")
+#Tampilan data pelanggan dengan nama kolom sesuai isi vector field_yang_digunakan
+pelanggan[field_yang_digunakan]
+
+#kolom jenis kelamin, profesi, dan tipe residen ini data berupa teks, kita ubah ke numerik supaya bisa dipakai di k-means
+pelanggan_matrix <- data.matrix(pelanggan[c("Jenis.Kelamin","Profesi","Tipe.Residen")])
+
+#gabungkan data dan masukkan kembali ke variabel pelanggan
+pelanggan <- data.frame(pelanggan, pelanggan_matrix)
+
+#lakukan normalisasi nilai biar sederhana dan efisien namun tetap akurat. normalisasi biasa dipakai untuk data yang berjumlah sangaaaat besar
+pelanggan$NilaiBelanjaSetahun <- pelanggan$NilaiBelanjaSetahun/1000000
+
+#bikin konversi data master. misalnya wiraswasta itu kodenya 5, ibu rumah tangga kodenya 3, dsbnya
+Profesi <- unique(pelanggan[c("Profesi","Profesi.1")])
+Jenis.Kelamin <- unique(pelanggan[c("Jenis.Kelamin","Jenis.Kelamin.1")])
+Tipe.Residen <- unique(pelanggan[c("Tipe.Residen","Tipe.Residen.1")])

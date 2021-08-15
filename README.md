@@ -7,4 +7,6 @@ tujuanku menggunakan K-Means adalah untuk mempersiapkan persona customer, memeta
 Dalam jurusanku yakni manajemen ekonomi, segmentasi pasar terbagi menjadi 6 yaitu lokasi, waktu, harga, demografi, dan psikografi. tolak ukur segmentasi pasar adalah sebagai berikut: measurable, accesible, substansial, differentiable, dan actionable. sekarang, aku akan menggunakan Machine Learning untuk melakukan Segmentasi pasar agar lebih efisien dan akurat. aku menggunakan pemrograman R sebagai tool menganalisa segmentasi pasar
 
 K-means untuk otomisasi clustering, maka kita memakai struktur data.frame atau matrix (tidak ada tipe karakter).
-Field yang digunakan adalah Customer ID, Nama Pelanggan, Jenis Kelamin, Umur, Profesi, Tipe Residen, dan Nilai Belanja Setahun
+Field yang digunakan adalah Customer ID, Nama Pelanggan, Jenis Kelamin, Umur, Profesi, Tipe Residen, dan Nilai Belanja Setahun.
+
+Customer ID dan Nama Pelanggan merupakan data unik karena berbeda-beda. Maka dari itu, kita tidak jadikan variabel penentu segmentasi. 

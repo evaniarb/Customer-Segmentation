@@ -1,0 +1,27 @@
+databaru <- data.frame(Customer_ID="CUST-100", Nama.Pelanggan="Rudi Wilamar",Umur=20,Jenis.Kelamin="Wanita",Profesi="Pelajar",Tipe.Residen="Cluster",NilaiBelanjaSetahun=3.5)
+databaru
+
+Identitas.Cluster <- readRDS(file="cluster.rds")	
+Identitas.Cluster
+
+#gabungkan data!
+databaru <- merge(databaru, Identitas.Cluster$Profesi)
+databaru <- merge(databaru, Identitas.Cluster$Jenis.Kelamin)
+databaru <- merge(databaru, Identitas.Cluster$Tipe.Residen)
+databaru
+
+#tentukan cluster!
+#cari jarak kuadrat minimum atau terdekat
+#dari kolom numerik data baru tersebut
+#ke centroid kolom terkait
+#dari seluruh cluster yang ada
+
+which.min(sapply( 1:5, function( x ) sum( ( databaru[Identitas.Cluster$field_yang_digunakan] - Identitas.Cluster$Segmentasi$centers[x,])^2 ) ))
+Identitas.Cluster$Segmen.Pelanggan[which.min(sapply( 1:5, function( x ) sum( ( databaru[Identitas.Cluster$field_yang_digunakan] - Identitas.Cluster$Segmentasi$centers[x,])^2 ) )),]
+
+#min: merupakan function untuk mencari nilai minimum
+#1:5 : adalah range nomor cluster dari 1 sampai dengan 5 (atau lebih sesuai dengan ukuran cluster)
+#sapply: digunakan untuk melakukan iterasi berdasarkan range (dalam kasus ini 1 s/d 5)
+#function(x): digunakan untuk proses dengan x diisi 1 s/d 5 per proses
+#(data[kolom] – objekkmeans$centers[x,]) ^2: adalah jarak kuadrat data. Ingat centers adalah komponen dari objek kmeans.
+#sum: digunakan untuk menjumlahkan jarak kuadrat

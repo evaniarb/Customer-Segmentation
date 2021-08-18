@@ -21,3 +21,24 @@ pelanggan[which(pelanggan$cluster == 4),]
 pelanggan[which(pelanggan$cluster == 5),] 
 
 #Melihat cluster means dari objek 
+segmentasi$centers
+
+#Analisa Hasil metrik Sum of Squares
+#jumlah "jarak kuadrat" perbedaan tiap titik data dengan mean atau centroidnya
+#Sum of squares dalam literatur data science lain sering disebut dengan Sum of Squared Errors (SSE)
+#Semakin besar nilai SS menyatakan semakin lebarnya perbedaan antar tiap titik data di dalam cluster tersebut
+#Membandingkan dengan 2 cluster kmeans, masing-masing 2 dan 5
+#Nilai 316.73367 adalah SS untuk cluster ke-1, 58.21123 adalah SS untuk cluste ke-2, dan seterusnya. Semakin kecil nilainya berpotensi semakin baik
+#total_SS: adalah SS untuk seluruh titik terhadap nilai rata-rata global, bukan untuk per cluster. Nilai ini selalu tetap dan tidak terpengaruh dengan jumlah cluster.
+#between_SS: adalah total_SS dikurangi dengan jumlah nilai SS seluruh cluster.
+#(between_SS / total_SS) adalah rasio antara between_SS dibagi dengan total_SS. Semakin besar persentasenya, ummnya semakin baik.
+kmeans(x=pelanggan[field_yang_digunakan], centers=2, nstart=25)
+set.seed(100)
+kmeans(x=pelanggan[field_yang_digunakan], centers=5, nstart=25)
+
+#Bagian K-Means available components
+set.seed(100)
+segmentasi <- kmeans(x=pelanggan[field_yang_digunakan], centers=5, nstart=25)
+segmentasi$withinss
+segmentasi$cluster
+segmentasi$tot.withinss

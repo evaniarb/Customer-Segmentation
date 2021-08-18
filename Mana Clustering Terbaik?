@@ -1,0 +1,29 @@
+#SS atau SSE sangat penting untuk nentuin clustering mana yang terbaik. hitung SSE untuk setiap cluster
+#Semakin sedikit jumlah cluster yang dihasilkan maka semakin besar nilai SS.
+#Begitu juga sebaliknya, semakin banyak jumlah cluster yang dihasilkan maka semakin kecil nilai SS nya.
+#Karena sifatnya kuadratik, jika terdapat perbedaan yang cukup signifikan antara tiap kombinasi cluster maka perbedaan nilai SS akan semakin besar.
+#Dan seiring bertambahnya jumlah cluster, perbedaan tiap SS ini akan semakin kecil.
+#elbow effect membantu untuk menghadapi data yang rumit (1 dimensi)
+
+#bagian k-means
+#Metrik elbow method yang digunakan sebagai basis justifikasi adalah Sum of Squares (SS), atau lebih tepatnya komponen tot.withinss dari objek kmeans
+#Metrik ini akan dicari progressive nilai tot.withinss untuk tiap kombinasi jumlah cluster, dan disimpan dalam bentuk vector di R. pake sapply
+set.seed(100)
+sse
+
+#abaikan#
+#contoh code lengkap
+sse <- sapply(1:10,
+function(param_k)
+{
+kmeans(pelanggan[field_yang_digunakan], param_k, nstart=25)$tot.withinss
+}
+)
+
+jumlah_cluster_max <- 10
+ssdata = data.frame(cluster=c(1:jumlah_cluster_max),sse)
+ggplot(ssdata, aes(x=cluster,y=sse)) +
+                geom_line(color="red") + geom_point() +
+                ylab("Within Cluster Sum of Squares") + xlab("Jumlah Cluster") +
+                geom_text(aes(label=format(round(sse, 2), nsmall = 2)),hjust=-0.2, vjust=-0.5) +
+  scale_x_discrete(limits=c(1:jumlah_cluster_max))

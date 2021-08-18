@@ -27,3 +27,24 @@ ggplot(ssdata, aes(x=cluster,y=sse)) +
                 ylab("Within Cluster Sum of Squares") + xlab("Jumlah Cluster") +
                 geom_text(aes(label=format(round(sse, 2), nsmall = 2)),hjust=-0.2, vjust=-0.5) +
   scale_x_discrete(limits=c(1:jumlah_cluster_max))
+
+#menamakan setiap segmen
+#Cluster 1 : Silver Youth Gals: alasannya adalah karena umurnya rata-rata adalah 20, wanita semua, profesinya bercampur antar pelajar dan professional serta pembelanjaan sekitar 6 juta.
+#Cluster 2 : Diamond Senior Member: alasannya adalah karena umurnya rata-rata adalah 61 tahun dan pembelanjaan di atas 8 juta.
+#Cluster 3 : Gold Young Professional: alasannya adalah karena umurnya rata-rata adalah 31 tahun, professional dan pembelanjaan cukup besar.
+#Cluster 4 : Diamond Profesional: alasannya adalah karena umurnya rata-rata adalah 42 tahun, pembelanjaan paling tinggi dan semuanya professional.
+#Cluster 5 : Silver Mid Professional: alasannya adalah karena umurnya rata-rata adalah 52 tahun dan pembelanjaan sekitar 6 juta.
+Segmen.Pelanggan <- data.frame(cluster=c(1,2,3,4,5), Nama.Segmen=c("Silver Youth Gals", "Diamond Senior Member", "Gold Young Professional", 
+"Diamond Professional", "Silver Mid Professional"))
+
+#Menggabungkan seluruh aset ke dalam variable Identitas.Cluster
+#Dataset pelanggan yang telah "diperkaya" dengan tambahan kolom hasil konversi teks menjadi numerik, dan menormalisasikan field NilaiBelanjaSetahun.
+#Objek kmeans dengan k=5, dipilih berdasarkan metodologi menggunakan metrik Sum of Squares (SS).
+#Membuat variable referensi atau pemetaan numerik dan teks asli (kategori) dari kolom Jenis Kelamin, Profesi dan Tipe Residen.
+#Variable data.frame dengan nama Pelanggan yang berisi penamaan cluster sesuai analisa karakteristik dari centroid kolom-kolom pelanggan yang digunakan.
+#Akan sangat baik jika semuanya digabungkan di satu variable dengan tipe list, dan ini akan jadi model kita yang dapat disimpan ke dalam file dan digunakan ketika diperlukan.
+Identitas.Cluster <- list(Profesi=Profesi, Jenis.Kelamin=Jenis.Kelamin, Tipe.Residen=Tipe.Residen, Segmentasi=segmentasi, 
+                          Segmen.Pelanggan=Segmen.Pelanggan, field_yang_digunakan=field_yang_digunakan)
+
+#Menyimpan Objek dalam Bentuk File
+saveRDS(Identitas.Cluster,"cluster.rds")
